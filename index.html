@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --body-bg: #f4f6f9;
+            --text: #222;
+            --card: #fff;
+            --primary: #3498db;
+            --rgba: rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-mode {
+            --body-bg: #0b0f19;
+            --text: #fff;
+            --card: #121826;
+            --rgba: rgba(255, 255, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--body-bg);
+            color: var(--text);
+            font-family: sans-serif;
+        }
+
+        .hamburger {
+            font-size: 22px;
+            padding: 15px;
+            cursor: pointer;
+            position: fixed;
+            z-index: 1000;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: var(--card);
+            position: fixed;
+            top: 0;
+            left: -250px;
+            transition: 0.3s;
+            box-shadow: 2px 0 10px var(--rgba);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar img {
+            width: 90px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 2px 3px 5px var(--rgba);
+        }
+
+        .sidebar span {
+            display: flex;
+            gap: 15px;
+            padding: 16px 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .sidebar span:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .mode {
+            margin: 20px;
+            padding: 10px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            cursor: pointer;
+            border-radius: 6px;
+            width: calc(100% - 40px);
+        }
+
+        .sidebar-view {
+            transition: 0.3s;
+            padding: 90px 40px;
+        }
+
+        .sidebar.active~.sidebar-view {
+            margin-left: 250px;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .active-content {
+            display: block;
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            margin-bottom: 8px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .img-box {
+            height: 160px;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            transition: 0.3s;
+        }
+
+        .img-box:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hamburger" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <img src="logo.png" alt="Loading Error">
+        <span onclick="showContent('home')"><i class="fa-solid fa-house"></i>Home</span>
+        <span onclick="showContent('works')"><i class="fa-solid fa-briefcase"></i>Works</span>
+        <span onclick="showContent('blog')"><i class="fa-solid fa-blog"></i>Blog</span>
+        <span onclick="showContent('gallery')"><i class="fa-solid fa-photo-film"></i>Gallery</span>
+        <span onclick="showContent('service')"><i class="fa-brands fa-servicestack"></i>Service</span>
+        <span onclick="showContent('contacts')"><i class="fa-solid fa-address-book"></i>Contacts</span>
+        <button class="mode" onclick="mode()">Mode</button>
+    </div>
+
+    <div class="sidebar-view">
+
+        <div id="home" class="content active-content">
+            <h1>Welcome 👋</h1>
+
+            <div class="card">
+                <h2>Hi, I'm Samip</h2>
+                <p>I design and build modern, responsive web interfaces with clean UI and smooth user experience.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>🚀 Skills</h3>
+                    <p>HTML, CSS, JavaScript</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Focus</h3>
+                    <p>Frontend Development & UI Design</p>
+                </div>
+
+                <div class="card">
+                    <h3>📌 Goal</h3>
+                    <p>Creating fast and visually appealing web applications</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Featured Work</h2>
+                <div class="grid">
+                    <div class="img-box" style="background-image:url('https://picsum.photos/300/200?7')"></div>
+                    <div class="img-box" style="background-image:url('https://picsum.photos/300/200?8')"></div>
+                    <div class="img-box" style="background-image:url('https://picsum.photos/300/200?9')"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="works" class="content">
+            <h1>Projects</h1>
+            <div class="grid">
+                <div class="img-box" style="background-image:url('https://picsum.photos/300/200?1')"></div>
+                <div class="img-box" style="background-image:url('https://picsum.photos/300/200?2')"></div>
+                <div class="img-box" style="background-image:url('https://picsum.photos/300/200?3')"></div>
+            </div>
+        </div>
+
+        <div id="blog" class="content">
+            <h1>Blog</h1>
+            <div class="card">How to build modern UI</div>
+            <div class="card">JavaScript best practices</div>
+        </div>
+
+        <div id="gallery" class="content">
+            <h1>Gallery</h1>
+            <div class="grid">
+                <div class="img-box" style="background-image:url('https://picsum.photos/300/200?4')"></div>
+                <div class="img-box" style="background-image:url('https://picsum.photos/300/200?5')"></div>
+                <div class="img-box" style="background-image:url('https://picsum.photos/300/200?6')"></div>
+            </div>
+        </div>
+
+        <div id="service" class="content">
+            <h1>Services</h1>
+            <div class="card">Web Design</div>
+            <div class="card">Frontend Development</div>
+        </div>
+
+        <div id="contacts" class="content">
+            <h1>Contact</h1>
+            <div class="card">Email: samiparmar6395@gmail.com</div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+
+        function showContent(id) {
+            document.querySelectorAll('.content').forEach(el => el.classList.remove('active-content'));
+            document.getElementById(id).classList.add('active-content');
+        }
+
+        function mode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+
+</body>
+
+</html>
